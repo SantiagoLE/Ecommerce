@@ -11,31 +11,46 @@ img{
 }
 
 :root{
+    --bg_home_img: hsl(354, 78%, 60%);
     --bg_button_Add: rgba(156, 219, 9, 0.251) ;
     --bg_body:  rgba(232, 224, 224, 0.918);
     --bg_cards: white;
     --color_stock:  rgba(28, 28, 27, 0.631);
+    --color_black:  black;
+    --text_color_light:hsl(0, 0%, 55%);
+    --bg_button_show: hsl(0, 0%, 17%);
 }
 
 html {
     scroll-behavior:smooth;
 }
 body{
-    padding: 1rem;
+    /* padding: 1rem; */
     background-color: var(--bg_body);
 }
 
-.navbar{
+header{
+    height: 50px;
+    position: fixed;
     width: 100%;
     left: 0;
     top: 0;
-    display: flex;
-    justify-content: space-between;
-position: fixed;
-background-color: red;
+   z-index: 1;
+   display: flex;
+   justify-content: center;
+   background-color: transparent;
 }
 
-.navbar img{
+header > nav{
+    max-width: 1024px; 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+background-color: transparent;
+}
+
+nav img{
     width: 40px;
     
 }
@@ -52,6 +67,64 @@ background-color: red;
     padding-right: 2rem;
     gap: 0.5rem;
 }
+
+.menu_Cart i{
+font-size: 2rem;
+}
+
+.container {
+    max-width: 1024px;
+     margin: 0 auto; 
+     padding: 0 1rem;
+    background-color: aqua;
+}
+
+.headPage{
+    display: grid;
+    gap: 2rem;
+}
+
+.home_Image{
+    display: flex;
+    gap: 50%;
+
+}
+
+.img_Page{
+    background-color: var(--bg_home_img);
+    padding: 2rem 0;
+}
+
+.info_HeadPage {
+    display: grid;
+    gap: 1rem;
+}
+
+
+.info_HeadPage h1{
+    color: var(--color_black);
+    
+}
+    
+.info_HeadPage p:nth-child(2){
+    color: var(--text_color_light);
+}
+
+.info_HeadPage p:nth-child(3){
+    color: var(--bg_home_img);
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.info_HeadPage button{
+    width: 50px;
+background-color: var(--bg_button_show);
+padding: 5rem;
+display: block;
+align-self: flex-start;
+}
+
+
 
 .products{
     max-width: 1024px;
