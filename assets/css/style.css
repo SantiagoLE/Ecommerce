@@ -14,23 +14,29 @@ img{
     --bg_home_img: hsl(354, 78%, 60%);
     --bg_button_Add: rgba(156, 219, 9, 0.251) ;
     --bg_body:  rgba(232, 224, 224, 0.918);
-    --bg_cards: white;
+    --color_white: white;
     --color_stock:  rgba(28, 28, 27, 0.631);
     --color_black:  black;
-    --text_color_light:hsl(0, 0%, 55%);
+    --color_social_icons: hsl(0, 0%, 35%);
+    --color_number_products:  hsl(0, 0%, 55%);
     --bg_button_show: hsl(0, 0%, 17%);
+    --bg_product:hsl(0, 0%, 90%);
+    --height_header: 60px;
 }
 
 html {
     scroll-behavior:smooth;
 }
+
 body{
     /* padding: 1rem; */
     background-color: var(--bg_body);
 }
 
+/* ***************************HEADER */
+
 header{
-    height: 50px;
+    height: var(--height_header);
     position: fixed;
     width: 100%;
     left: 0;
@@ -38,13 +44,14 @@ header{
    z-index: 1;
    display: flex;
    justify-content: center;
-   background-color: transparent;
+   background-color: red;
 }
 
 header > nav{
     max-width: 1024px; 
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     
 background-color: transparent;
@@ -70,12 +77,13 @@ nav img{
 
 .menu_Cart i{
 font-size: 2rem;
+cursor: pointer;
 }
 
 .container {
     max-width: 1024px;
      margin: 0 auto; 
-     padding: 0 1rem;
+     padding: 0 3rem;
     background-color: aqua;
 }
 
@@ -107,7 +115,7 @@ font-size: 2rem;
 }
     
 .info_HeadPage p:nth-child(2){
-    color: var(--text_color_light);
+    color: var(--color_number_products);
 }
 
 .info_HeadPage p:nth-child(3){
@@ -116,29 +124,57 @@ font-size: 2rem;
     font-size: x-large;
 }
 
-.info_HeadPage button{
-    width: 50px;
+.info_HeadPage a{
+margin-bottom: 4rem;
 background-color: var(--bg_button_show);
-padding: 5rem;
-display: block;
-align-self: flex-start;
+padding: 1rem 2.5rem;
+place-self:start;
+color: var(--color_white);
+text-decoration: none;
 }
 
+/* ***************************FILTER */
+
+.filter_products{
+    margin: 0% auto;
+    max-width: 300px;
+    display: grid;
+    align-items: center;
+    align-content: center;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;   
+}
+
+.filter_products div{
+    cursor: pointer;
+    text-align: center;
+    background-color: var(--bg_button_show);
+    color: var(--color_white);
+    padding: 0.5rem 0;    
+}
+
+.filter_products div p:nth-child(2){
+ font-size: small;
+ color: var(--color_number_products);
+}
+
+/* ***************************PRODUCTS */
 
 
 .products{
     max-width: 1024px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     margin:0 auto;
-    gap: 1rem;
+    gap: 2rem;
     padding-top: 3rem;
 }
 
 .cards_Products{
     border-radius: 1rem;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-     background-color: var(--bg_cards);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.706);
+     background-color: var(--bg_product);
    
 }
 
@@ -156,10 +192,10 @@ align-items: center;
 justify-content: center;
 background-color: var(--bg_button_Add);
 border-radius: 50%;
-font-size: 2rem;
-bottom: -15px;
+font-size: 1.5rem;
+bottom: -20px;
 right: 20px;
-
+padding: 8px;
 }
 
 .info_Product{
@@ -187,4 +223,72 @@ padding: 20px 0;}
 .description_Product p{
 font-weight: bold;
 padding-left: 20px;
+}
+
+/* ***************************CART */
+
+.cart_content{
+    height:calc(100vh - var(--height_header));
+    width: 400px;
+    background-color: red;
+    position: fixed;
+    top: var(--height_header);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart_content .cart_products{
+background-color: blue;
+height: 85%;
+}
+
+.cart_total{
+    background-color: green;
+    height: 15%;
+}
+
+/* ***************************FOOTER */
+
+.footer_container{
+    background-color: var(--bg_product);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem 2rem;
+    margin-top: 2rem;
+}
+
+.footer_container a{
+    text-decoration: none;
+    color: var(--color_black);
+}
+
+.footer_container div{
+    display: grid;
+    gap: 1rem;
+}
+
+.footer_container .social{
+    display: grid;
+}
+
+.footer_container .icons_social{
+    display: flex;
+}
+
+.footer_container .icons_social i{
+    font-size: 2rem;
+    color: var(--color_social_icons);
+}
+
+.footer_container .personal_data{
+    background-color: var(--bg_home_img);
+    padding: 1rem 0;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer_container .personal_data i{
+font-size: 2rem;
 }
