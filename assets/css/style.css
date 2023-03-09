@@ -228,14 +228,22 @@ padding-left: 20px;
 /* ***************************CART */
 
 .cart_content{
+    padding: 1rem;
     height:calc(100vh - var(--height_header));
     width: 400px;
-    background-color: red;
+    background-color: var(--color_white);
     position: fixed;
     top: var(--height_header);
-    right: 0;
+    right: -220%;
     display: flex;
     flex-direction: column;
+    transition: right 0.5s;
+}
+
+.view_cart{
+right: 0%;
+background-color: black;
+display: block;
 }
 
 .cart_content .cart_products{

@@ -180,6 +180,8 @@ async function allProducts() {
     }
 }
 
+/*.....Pintando la dataBase en Cards..... */
+
 function printProducts(dataBase) {
     const productsHTML = document.querySelector(".products")
 
@@ -188,7 +190,7 @@ function printProducts(dataBase) {
     for (const product of dataBase.products) {
 
         const { id, name, price, image, category, quantity, description } = product
-        html +=`
+        html += `
             <div class="cards_Products">
                 <div class="img_Product">
                     <img src="${image}" alt="img">
@@ -213,14 +215,67 @@ function printProducts(dataBase) {
     productsHTML.innerHTML = html
 
 }
+
+/*..... Adicionar || quitar clase .view_cart para ver o esconder carrito ..... */
+
+function viewCart() {
+    const bagajeIconHTML = document.querySelector(".bx-shopping-bag")
+    const cartContentHTML = document.querySelector(".cart_content")
+
+    bagajeIconHTML.addEventListener("click", function () {
+        cartContentHTML.classList.toggle("view_cart")
+        console.log("hola");
+    })
+}
+
+/*..... Adicionar los productos al carrito ..... */
+
+function addProductsToCard (dataBase) {
+
+    const productsHTML = document.querySelector(".products")
+    productsHTML.addEventListener("click", function (e) {
+
+        if (e.target.classList.contains("bx-plus")) {
+            const id = Number(e.target.id)
+
+            const productSearch = dataBase.products.find((product) => product.id === id);
+            {// let productSearch = null
+            // for (const product of dataBase.products) {
+            //     if (product.id === id) {
+            //         productSearch = product
+            //         break
+            //     }
+            //}
+            }
+            if (dataBase.cart[productSearch.id]){
+                if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
+                return alert("producto sin stock")
+                dataBase.cart[productSearch.id].cuanty++
+            }else {
+                dataBase.cart[productSearch.id] = {...productSearch, cuanty:1}
+            }
+
+            localStorage.setItem("cart" , JSON.stringify(dataBase.cart))
+
+        }
+    });
+}
+
+
+
+/*..... Funcion main "inicio de todo el codigo" ..... */
+
 async function main() {
     const dataBase = {
         products: JSON.parse(window.localStorage.getItem("products")) || await allProducts(),
-        cart: {}
+         cart: JSON.parse(localStorage.getItem("cart")) || {},
     }
 
     printProducts(dataBase)
+    viewCart()
+    addProductsToCard(dataBase)
 
+    
 }
 main()
 
