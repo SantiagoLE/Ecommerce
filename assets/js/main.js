@@ -224,13 +224,12 @@ function viewCart() {
 
     bagajeIconHTML.addEventListener("click", function () {
         cartContentHTML.classList.toggle("view_cart")
-        console.log("hola");
     })
 }
 
 /*..... Adicionar los productos al carrito ..... */
 
-function addProductsToCard (dataBase) {
+function addProductsToCard(dataBase) {
 
     const productsHTML = document.querySelector(".products")
     productsHTML.addEventListener("click", function (e) {
@@ -239,26 +238,65 @@ function addProductsToCard (dataBase) {
             const id = Number(e.target.id)
 
             const productSearch = dataBase.products.find((product) => product.id === id);
+            
             {// let productSearch = null
-            // for (const product of dataBase.products) {
-            //     if (product.id === id) {
-            //         productSearch = product
-            //         break
-            //     }
-            //}
+                // for (const product of dataBase.products) {
+                //     if (product.id === id) {
+                //         productSearch = product
+                //         break
+                //     }
+                //}
             }
-            if (dataBase.cart[productSearch.id]){
+            if (dataBase.cart[productSearch.id]) {
                 if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
-                return alert("producto sin stock")
+                    return alert("Producto sin stock")
                 dataBase.cart[productSearch.id].cuanty++
-            }else {
-                dataBase.cart[productSearch.id] = {...productSearch, cuanty:1}
+            } else {
+                dataBase.cart[productSearch.id] = { ...productSearch, cuanty: 1 }
             }
 
-            localStorage.setItem("cart" , JSON.stringify(dataBase.cart))
+            localStorage.setItem("cart", JSON.stringify(dataBase.cart))
+            printProductsInCart(dataBase)
 
         }
     });
+}
+
+/*..... Pintando los productos en el carrito ..... */
+
+function printProductsInCart(dataBase) {
+
+    const cartProductsHTML = document.querySelector(".cart_products")
+
+    let html = ""
+
+    for (const product in dataBase.cart) {
+
+        const { cuanty, price, name, image, id, quantity } = dataBase.cart[product];
+
+        html += `
+        <div class="product_InCart">
+
+             <div class="img_ProductInCart">
+                    <img src="${image}" alt="imgage">
+             </div>
+
+            <div class="info_ProductInCart">
+
+                 <h3>${name}</h3>
+                  <p>Stock: ${quantity} | <span>$${price}</span></p>
+                 <p>Subtotal:$ </p>
+                 <div class="add_Sub_Clear" id="${id}">
+                      <i class='bx bx-minus'></i>
+                      <p>${cuanty} Units</p>
+                      <i class='bx bx-plus'></i>
+                      <i class='bx bx-trash'></i>
+                 </div>
+            </div>
+        </div>
+                `
+    }
+    cartProductsHTML.innerHTML = html
 }
 
 
@@ -268,14 +306,51 @@ function addProductsToCard (dataBase) {
 async function main() {
     const dataBase = {
         products: JSON.parse(window.localStorage.getItem("products")) || await allProducts(),
-         cart: JSON.parse(localStorage.getItem("cart")) || {},
+        cart: JSON.parse(localStorage.getItem("cart")) || {},
     }
 
     printProducts(dataBase)
     viewCart()
     addProductsToCard(dataBase)
+    printProductsInCart(dataBase)
 
-    
+    const cartProductsHTML = document.querySelector(".cart_products")
+
+    cartProductsHTML.addEventListener("click", function (e) {
+
+        if (e.target.classList.contains("bx-plus")) {
+            const id = (e.target.parentElement.id);
+
+            // const productSearch = dataBase.products.find((product) => product.id === id);
+            // if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty);
+            //     return alert("Producto sin stock");
+
+            dataBase.cart[id].cuanty++
+        }
+
+        if (e.target.classList.contains("bx-minus")) {
+            const id = (e.target.parentElement.id)
+
+            if (dataBase.cart[id].cuanty === 1) {
+                delete dataBase.cart[id]
+
+
+            } else {
+                dataBase.cart[id].cuanty--;
+
+            }
+            
+        }
+
+        if (e.target.classList.contains("bx-trash")) {
+            const id = (e.target.parentElement.id)
+            delete dataBase.cart[id]
+        }
+
+        localStorage.setItem("cart", JSON.stringify(dataBase.cart))
+        printProductsInCart(dataBase)
+    })
+
 }
 main()
 

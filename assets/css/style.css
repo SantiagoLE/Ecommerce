@@ -1,104 +1,105 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-img{
+img {
     width: 100%;
     display: block;
 }
 
-:root{
+:root {
     --bg_home_img: hsl(354, 78%, 60%);
-    --bg_button_Add: rgba(156, 219, 9, 0.251) ;
-    --bg_body:  rgba(232, 224, 224, 0.918);
+    --bg_button_Add: rgba(156, 219, 9, 0.251);
+    --bg_body: rgba(232, 224, 224, 0.918);
     --color_white: white;
-    --color_stock:  rgba(28, 28, 27, 0.631);
-    --color_black:  black;
+    --color_stock:  hsl(0, 0%, 55%);
+    --color_black: black;
     --color_social_icons: hsl(0, 0%, 35%);
-    --color_number_products:  hsl(0, 0%, 55%);
     --bg_button_show: hsl(0, 0%, 17%);
-    --bg_product:hsl(0, 0%, 90%);
+    --bg_product: hsl(0, 0%, 90%);
     --height_header: 60px;
+    --box_shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.706);
+
 }
 
 html {
-    scroll-behavior:smooth;
+    scroll-behavior: smooth;
 }
 
-body{
+body {
     /* padding: 1rem; */
     background-color: var(--bg_body);
 }
 
 /* ***************************HEADER */
 
-header{
+header {
     height: var(--height_header);
     position: fixed;
     width: 100%;
     left: 0;
     top: 0;
-   z-index: 1;
-   display: flex;
-   justify-content: center;
-   background-color: red;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    background-color: red;
 }
 
-header > nav{
-    max-width: 1024px; 
+header>nav {
+    max-width: 1024px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
-background-color: transparent;
+
+    background-color: transparent;
 }
 
-nav img{
+nav img {
     width: 40px;
-    
+
 }
 
-.logo_Academlo{
+.logo_Academlo {
     display: flex;
     align-items: center;
     padding-left: 2rem;
 }
 
-.menu_Cart{
+.menu_Cart {
     display: flex;
     align-items: center;
     padding-right: 2rem;
     gap: 0.5rem;
 }
 
-.menu_Cart i{
-font-size: 2rem;
-cursor: pointer;
+.menu_Cart i {
+    font-size: 2rem;
+    cursor: pointer;
 }
 
 .container {
     max-width: 1024px;
-     margin: 0 auto; 
-     padding: 0 3rem;
+    margin: 0 auto;
+    padding: 0 3rem;
     background-color: aqua;
 }
 
-.headPage{
+.headPage {
     display: grid;
     gap: 2rem;
 }
 
-.home_Image{
+.home_Image {
     display: flex;
     gap: 50%;
 
 }
 
-.img_Page{
+.img_Page {
     background-color: var(--bg_home_img);
     padding: 2rem 0;
 }
@@ -109,33 +110,33 @@ cursor: pointer;
 }
 
 
-.info_HeadPage h1{
+.info_HeadPage h1 {
     color: var(--color_black);
-    
-}
-    
-.info_HeadPage p:nth-child(2){
-    color: var(--color_number_products);
+
 }
 
-.info_HeadPage p:nth-child(3){
+.info_HeadPage p:nth-child(2) {
+    color: var(--color_stock);
+}
+
+.info_HeadPage p:nth-child(3) {
     color: var(--bg_home_img);
     font-weight: bold;
     font-size: x-large;
 }
 
-.info_HeadPage a{
-margin-bottom: 4rem;
-background-color: var(--bg_button_show);
-padding: 1rem 2.5rem;
-place-self:start;
-color: var(--color_white);
-text-decoration: none;
+.info_HeadPage a {
+    margin-bottom: 4rem;
+    background-color: var(--bg_button_show);
+    padding: 1rem 2.5rem;
+    place-self: start;
+    color: var(--color_white);
+    text-decoration: none;
 }
 
 /* ***************************FILTER */
 
-.filter_products{
+.filter_products {
     margin: 0% auto;
     max-width: 300px;
     display: grid;
@@ -143,71 +144,72 @@ text-decoration: none;
     align-content: center;
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;   
+    gap: 1rem;
 }
 
-.filter_products div{
+.filter_products div {
     cursor: pointer;
     text-align: center;
     background-color: var(--bg_button_show);
     color: var(--color_white);
-    padding: 0.5rem 0;    
+    padding: 0.5rem 0;
 }
 
-.filter_products div p:nth-child(2){
- font-size: small;
- color: var(--color_number_products);
+.filter_products div p:nth-child(2) {
+    font-size: small;
+    color: var(--color_stock);
 }
 
 /* ***************************PRODUCTS */
 
 
-.products{
+.products {
     max-width: 1024px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    margin:0 auto;
+    margin: 0 auto;
     gap: 2rem;
     padding-top: 3rem;
 }
 
-.cards_Products{
+.cards_Products {
     border-radius: 1rem;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.706);
-     background-color: var(--bg_product);
-   
+    box-shadow: var(--box_shadow);
+    background-color: var(--bg_product);
+
 }
 
-.img_Product{
+.img_Product {
     padding: 1rem;
     position: relative;
-    
+
 }
 
-.button_Add{
-position: absolute;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-background-color: var(--bg_button_Add);
-border-radius: 50%;
-font-size: 1.5rem;
-bottom: -20px;
-right: 20px;
-padding: 8px;
+.button_Add {
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg_button_Add);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    bottom: -20px;
+    right: 20px;
+    padding: 8px;
 }
 
-.info_Product{
-padding: 20px 0;}
+.info_Product {
+    padding: 20px 0;
+}
 
-.price_stock{
+.price_stock {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.price_stock h4{
+.price_stock h4 {
     color: var(--color_stock)
 }
 
@@ -220,16 +222,16 @@ padding: 20px 0;}
     padding-left: 20px;
 }
 
-.description_Product p{
-font-weight: bold;
-padding-left: 20px;
+.description_Product p {
+    font-weight: bold;
+    padding-left: 20px;
 }
 
 /* ***************************CART */
 
-.cart_content{
+.cart_content {
     padding: 1rem;
-    height:calc(100vh - var(--height_header));
+    height: calc(100vh - var(--height_header));
     width: 400px;
     background-color: var(--color_white);
     position: fixed;
@@ -238,27 +240,87 @@ padding-left: 20px;
     display: flex;
     flex-direction: column;
     transition: right 0.5s;
+    z-index: 2;
+
 }
 
-.view_cart{
-right: 0%;
-background-color: black;
-display: block;
+@media (max-width: 400px) {
+    .cart_content {
+        width: 100%;
+    }
 }
 
-.cart_content .cart_products{
-background-color: blue;
-height: 85%;
+.view_cart {
+    right: 0%;
+    background-color: black;
+    display: block;
 }
 
-.cart_total{
+.cart_products {
+    background-color: var(--color_white);
+    height: 85%;
+    overflow-y: scroll;
+}
+
+.cart_total {
     background-color: green;
     height: 15%;
 }
 
+/* ***************************Estilo de productos dentro de CART */
+
+.product_InCart {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    padding: 0.5rem;
+    /* box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.706); */
+    gap: 1.5rem;
+    align-items: center;
+    font-size: small;
+}
+
+.img_ProductInCart {
+    background-color: var(--bg_product);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--bg_home_img);
+    padding-bottom: 1rem;
+}
+
+.info_ProductInCart h3{
+    color: var(--color_black);
+}
+
+.info_ProductInCart p:nth-child(2){
+    color: var(--color_stock);
+}
+
+.info_ProductInCart span{
+color: var(--bg_home_img);
+font-size: small;
+}
+
+.info_ProductInCart p:nth-child(3){
+    color: var(--bg_home_img);
+}
+
+.add_Sub_Clear {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add_Sub_Clear i{
+    cursor: pointer;
+    color: var(--color_black);
+}
+
+.add_Sub_Clear i:nth-child(4){
+    color: var(--bg_home_img);
+}
+
 /* ***************************FOOTER */
 
-.footer_container{
+.footer_container {
     background-color: var(--bg_product);
     display: flex;
     flex-direction: column;
@@ -267,36 +329,36 @@ height: 85%;
     margin-top: 2rem;
 }
 
-.footer_container a{
+.footer_container a {
     text-decoration: none;
     color: var(--color_black);
 }
 
-.footer_container div{
+.footer_container div {
     display: grid;
     gap: 1rem;
 }
 
-.footer_container .social{
+.footer_container .social {
     display: grid;
 }
 
-.footer_container .icons_social{
+.footer_container .icons_social {
     display: flex;
 }
 
-.footer_container .icons_social i{
+.footer_container .icons_social i {
     font-size: 2rem;
     color: var(--color_social_icons);
 }
 
-.footer_container .personal_data{
+.footer_container .personal_data {
     background-color: var(--bg_home_img);
     padding: 1rem 0;
     justify-content: center;
     text-align: center;
 }
 
-.footer_container .personal_data i{
-font-size: 2rem;
+.footer_container .personal_data i {
+    font-size: 2rem;
 }
