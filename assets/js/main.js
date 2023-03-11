@@ -238,7 +238,7 @@ function addProductsToCard(dataBase) {
             const id = Number(e.target.id)
 
             const productSearch = dataBase.products.find((product) => product.id === id);
-            
+
             {// let productSearch = null
                 // for (const product of dataBase.products) {
                 //     if (product.id === id) {
@@ -321,10 +321,9 @@ async function main() {
         if (e.target.classList.contains("bx-plus")) {
             const id = (e.target.parentElement.id);
 
-            // const productSearch = dataBase.products.find((product) => product.id === id);
-            // if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty);
-            //     return alert("Producto sin stock");
-
+            const productSearch = dataBase.products.find((product) => product.id === id);
+            if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
+                return alert("Producto sin stock")
             dataBase.cart[id].cuanty++
         }
 
@@ -339,7 +338,7 @@ async function main() {
                 dataBase.cart[id].cuanty--;
 
             }
-            
+
         }
 
         if (e.target.classList.contains("bx-trash")) {
