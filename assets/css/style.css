@@ -15,7 +15,7 @@ img {
     --bg_button_Add: rgba(156, 219, 9, 0.251);
     --bg_body: rgba(232, 224, 224, 0.918);
     --color_white: white;
-    --color_stock:  hsl(0, 0%, 55%);
+    --color_stock: hsl(0, 0%, 55%);
     --color_black: black;
     --color_social_icons: hsl(0, 0%, 35%);
     --bg_button_show: hsl(0, 0%, 17%);
@@ -55,7 +55,7 @@ header>nav {
     align-items: center;
     justify-content: space-between;
 
-    background-color: transparent;
+    background-color: green;
 }
 
 nav img {
@@ -230,7 +230,6 @@ nav img {
 /* ***************************CART */
 
 .cart_content {
-    padding: 1rem;
     height: calc(100vh - var(--height_header));
     width: 400px;
     background-color: var(--color_white);
@@ -240,11 +239,11 @@ nav img {
     display: flex;
     flex-direction: column;
     transition: right 0.5s;
-    z-index: 2;
+    z-index: 20;
 
 }
 
-@media (max-width: 400px) {
+@media (max-width: 700px) {
     .cart_content {
         width: 100%;
     }
@@ -253,19 +252,54 @@ nav img {
 .view_cart {
     right: 0%;
     background-color: black;
-    display: block;
+    /* display: block; */
 }
 
 .cart_products {
     background-color: var(--color_white);
     height: 85%;
     overflow-y: scroll;
+    margin: 1rem 1rem 0 1rem;
 }
 
 .cart_total {
     background-color: green;
     height: 15%;
+    margin: 0 1rem 1rem 1rem;
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
 }
+
+.cart_total--info {
+    background-color: blue;
+    color: var(--color_stock);
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart_total--info span:nth-child(2){
+    font-weight: bold;
+}
+
+.btn_buy{
+    background-color: red;
+    display: flex;
+    justify-content: center;
+}
+
+.btn_buy button{
+    padding: 1rem 4rem;
+    background-color: var(--bg_button_show);
+    color: var(--color_white);
+    border: none;
+    transition:  background-color 0.7s;
+}
+
+.btn_buy button:hover{
+    background-color: var(--bg_home_img);
+}
+
 
 /* ***************************Estilo de productos dentro de CART */
 
@@ -273,7 +307,6 @@ nav img {
     display: grid;
     grid-template-columns: 1fr 4fr;
     padding: 0.5rem;
-    /* box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.706); */
     gap: 1.5rem;
     align-items: center;
     font-size: small;
@@ -287,20 +320,20 @@ nav img {
     padding-bottom: 1rem;
 }
 
-.info_ProductInCart h3{
+.info_ProductInCart h3 {
     color: var(--color_black);
 }
 
-.info_ProductInCart p:nth-child(2){
+.info_ProductInCart p:nth-child(2) {
     color: var(--color_stock);
 }
 
-.info_ProductInCart span{
-color: var(--bg_home_img);
-font-size: small;
+.info_ProductInCart span {
+    color: var(--bg_home_img);
+    font-size: small;
 }
 
-.info_ProductInCart p:nth-child(3){
+.info_ProductInCart p:nth-child(3) {
     color: var(--bg_home_img);
 }
 
@@ -309,12 +342,12 @@ font-size: small;
     gap: 0.5rem;
 }
 
-.add_Sub_Clear i{
+.add_Sub_Clear i {
     cursor: pointer;
     color: var(--color_black);
 }
 
-.add_Sub_Clear i:nth-child(4){
+.add_Sub_Clear i:nth-child(4) {
     color: var(--bg_home_img);
 }
 

@@ -257,6 +257,7 @@ function addProductsToCard(dataBase) {
 
             localStorage.setItem("cart", JSON.stringify(dataBase.cart))
             printProductsInCart(dataBase)
+            printTotalInCart(dataBase)
 
         }
     });
@@ -299,7 +300,74 @@ function printProductsInCart(dataBase) {
     cartProductsHTML.innerHTML = html
 }
 
+/*..... Adicionar, restar, eliminar los productor desde el carrito ..... */
 
+function handleProducts(dataBase) {
+    const cartProductsHTML = document.querySelector(".cart_products")
+
+    cartProductsHTML.addEventListener("click", function (e) {
+
+        if (e.target.classList.contains("bx-plus")) {
+            const id = Number(e.target.parentElement.id);
+
+            const productSearch = dataBase.products.find((product) => product.id === id);
+            if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
+                return alert("Producto sin stock")
+            dataBase.cart[id].cuanty++
+        }
+
+        if (e.target.classList.contains("bx-minus")) {
+            const id = Number(e.target.parentElement.id)
+
+            if (dataBase.cart[id].cuanty === 1) {
+                const response = confirm(
+                    " Seguro deseas eliminar este producto del carrito?"
+                )
+
+                if (!response) return;
+                delete dataBase.cart[id];
+
+            } else {
+                dataBase.cart[id].cuanty--;
+            }
+
+        }
+
+        if (e.target.classList.contains("bx-trash")) {
+            const id = Number(e.target.parentElement.id)
+            const response = confirm(
+                " Seguro deseas eliminar este producto del carrito?"
+            )
+            if (!response) return;
+            delete dataBase.cart[id];
+        }
+
+        localStorage.setItem("cart", JSON.stringify(dataBase.cart))
+        printProductsInCart(dataBase)
+        printTotalInCart(dataBase)
+    })
+
+}
+
+/*..... Pintar total productos y precio total productos en el carrito ..... */
+
+function printTotalInCart(dataBase) {
+    const totalProductsHTML = document.querySelector(".total_products")
+    const totalPriceHTML = document.querySelector(".total_price")
+
+    let totalProducts = 0
+    let totalPrice = 0
+
+    for (const product in dataBase.cart) {
+        const { cuanty, price } = dataBase.cart[product];
+        totalPrice += cuanty * price;
+        totalProducts += cuanty;
+
+    }
+
+    totalProductsHTML.textContent = totalProducts
+    totalPriceHTML.textContent = "$" + totalPrice + ".00"
+}
 
 /*..... Funcion main "inicio de todo el codigo" ..... */
 
@@ -313,42 +381,12 @@ async function main() {
     viewCart()
     addProductsToCard(dataBase)
     printProductsInCart(dataBase)
+    handleProducts(dataBase)
+    printTotalInCart(dataBase)
 
-    const cartProductsHTML = document.querySelector(".cart_products")
-
-    cartProductsHTML.addEventListener("click", function (e) {
-
-        if (e.target.classList.contains("bx-plus")) {
-            const id = (e.target.parentElement.id);
-
-            const productSearch = dataBase.products.find((product) => product.id === id);
-            if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
-                return alert("Producto sin stock")
-            dataBase.cart[id].cuanty++
-        }
-
-        if (e.target.classList.contains("bx-minus")) {
-            const id = (e.target.parentElement.id)
-
-            if (dataBase.cart[id].cuanty === 1) {
-                delete dataBase.cart[id]
+    
 
 
-            } else {
-                dataBase.cart[id].cuanty--;
-
-            }
-
-        }
-
-        if (e.target.classList.contains("bx-trash")) {
-            const id = (e.target.parentElement.id)
-            delete dataBase.cart[id]
-        }
-
-        localStorage.setItem("cart", JSON.stringify(dataBase.cart))
-        printProductsInCart(dataBase)
-    })
 
 }
 main()
