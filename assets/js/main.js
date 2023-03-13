@@ -195,14 +195,15 @@ function printProducts(dataBase) {
                 <div class="img_Product">
                     <img src="${image}" alt="img">
                     <div class="button_Add">
-                        <i class='bx bx-plus' id="${id}"></i>
+                    ${quantity ? `<i class='bx bx-plus' id="${id}"></i> ` : ""}
+                       
                     </div>
                 </div>
                
                 <div class="info_Product">               
                     <div class="price_stock">
-                    <h2>$${price}</h2>
-                     <h4>Stock: ${quantity}</h4>
+                    <h3>$${price}.00</h3>
+                     <h5>${quantity ? `Stock: ${quantity}` : "<span class='sold_Out'>Sold out</span>"}</h5>
                     </div>
                     <div class="description_Product">
                         <p>${name}</p>
@@ -211,9 +212,7 @@ function printProducts(dataBase) {
             </div>
         `
     }
-    // console.log(cards_ProductsHTML);
     productsHTML.innerHTML = html
-
 }
 
 /*..... Adicionar || quitar clase .view_cart para ver o esconder carrito ..... */
@@ -227,7 +226,64 @@ function viewCart() {
     })
 }
 
-/*..... Adicionar los productos al carrito ..... */
+/*..... Adicionar || quitar clase .view_menu_products para ver o esconder menu  ..... */
+
+function viewMenu() {
+    const menuProductsHTML = document.querySelector(".menu_Products")
+    const bxsDashboardHTML = document.querySelector(".bxs-dashboard")
+
+    bxsDashboardHTML.addEventListener("click", function () {
+        menuProductsHTML.classList.toggle("view_menu_Products")
+    })
+}
+
+/*..... darkMode  ..... */
+
+function darkMode() {
+      // const darkModeHTML = document.querySelector(".bx-moon")
+    // console.log(darkModeHTML);
+    // darkModeHTML.addEventListener("click", function(){
+    //     document.body.classList.toggle("darkmode");
+    // })
+    // const  darkModeHTML = document.querySelector(".dark_Mode");
+
+
+    const bxMoonHTML = document.querySelector("#icon_moon");
+    const bxSunHTML = document.querySelector("#icon_sun");
+
+    bxMoonHTML.addEventListener("click", function () {
+        bxMoonHTML.classList.add("hide_icon_darkmode");
+        bxSunHTML.classList.remove("hide_icon_darkmode");
+    })
+    bxSunHTML.addEventListener("click", function () {
+        bxSunHTML.classList.add("hide_icon_darkmode");
+        bxMoonHTML.classList.remove("hide_icon_darkmode");
+
+
+    });
+
+
+}
+
+/*..... Adicionar || quitar clase .header_active para ver o esconder efecto header   ..... */
+
+function headerEfect() {
+    const headerHTML = document.querySelector("header")
+
+    window.addEventListener("scroll", function () {
+        // console.log(window.scrollY);
+
+        if (window.scrollY > 55) {
+            headerHTML.classList.add("header_active")
+        } else {
+            headerHTML.classList.remove("header_active")
+        }
+    })
+
+}
+
+
+/*..... Adicionar los productos al carrito desde las cards..... */
 
 function addProductsToCard(dataBase) {
 
@@ -258,6 +314,7 @@ function addProductsToCard(dataBase) {
             localStorage.setItem("cart", JSON.stringify(dataBase.cart))
             printProductsInCart(dataBase)
             printTotalInCart(dataBase)
+            handlePrintCuantyProducts(dataBase)
 
         }
     });
@@ -285,8 +342,8 @@ function printProductsInCart(dataBase) {
             <div class="info_ProductInCart">
 
                  <h3>${name}</h3>
-                  <p>Stock: ${quantity} | <span>$${price}</span></p>
-                 <p>Subtotal:$ </p>
+                  <p>Stock: ${quantity} | <span>$${price}.00</span></p>
+                 <p>Subtotal:$"${price}" * "${cuanty}" </p>
                  <div class="add_Sub_Clear" id="${id}">
                       <i class='bx bx-minus'></i>
                       <p>${cuanty} Units</p>
@@ -302,7 +359,7 @@ function printProductsInCart(dataBase) {
 
 /*..... Adicionar, restar, eliminar los productor desde el carrito ..... */
 
-function handleProducts(dataBase) {
+function handleProductsInCart(dataBase) {
     const cartProductsHTML = document.querySelector(".cart_products")
 
     cartProductsHTML.addEventListener("click", function (e) {
@@ -345,6 +402,7 @@ function handleProducts(dataBase) {
         localStorage.setItem("cart", JSON.stringify(dataBase.cart))
         printProductsInCart(dataBase)
         printTotalInCart(dataBase)
+        handlePrintCuantyProducts(dataBase)
     })
 
 }
@@ -365,8 +423,62 @@ function printTotalInCart(dataBase) {
 
     }
 
-    totalProductsHTML.textContent = totalProducts
+    totalProductsHTML.textContent = totalProducts + "  productos"
     totalPriceHTML.textContent = "$" + totalPrice + ".00"
+}
+
+/*..... Comprar desde el carrito ..... */
+
+function handleTotal(dataBase) {
+    const btnBuyHTML = document.querySelector(".btn_buy");
+    btnBuyHTML.addEventListener("click", function () {
+
+        if (!Object.values(dataBase.cart).length)
+            return alert("Tu carrito de compras esta vacio");
+
+        const response = confirm("Seguro que quieres comprar?");
+        if (!response) return;
+
+        const currentProducts = []
+
+        for (const product of dataBase.products) {
+
+            const productInCart = dataBase.cart[product.id]
+            if (product.id === productInCart?.id) {
+                currentProducts.push({
+                    ...product,
+                    quantity: product.quantity - productInCart.cuanty,
+                })
+            } else {
+                currentProducts.push(product)
+            }
+        }
+
+        dataBase.products = currentProducts;
+        dataBase.cart = {};
+        localStorage.setItem("products", JSON.stringify(dataBase.products));
+        localStorage.setItem("cart", JSON.stringify(dataBase.cart));
+
+        printTotalInCart(dataBase);
+        printProductsInCart(dataBase);
+        printProducts(dataBase);
+        handlePrintCuantyProducts(dataBase);
+
+    })
+}
+
+/*..... Mostrar cantidad de productos en icono de carrito ..... */
+
+function handlePrintCuantyProducts(dataBase) {
+    const cuantyProductsHMTL = document.querySelector(".cuanty_products");
+
+    let cuanty = 0;
+
+    for (const product in dataBase.cart) {
+        cuanty += dataBase.cart[product].cuanty;
+    }
+
+    cuantyProductsHMTL.textContent = cuanty;
 }
 
 /*..... Funcion main "inicio de todo el codigo" ..... */
@@ -379,14 +491,17 @@ async function main() {
 
     printProducts(dataBase)
     viewCart()
+    viewMenu()
+    headerEfect()
     addProductsToCard(dataBase)
     printProductsInCart(dataBase)
-    handleProducts(dataBase)
+    handleProductsInCart(dataBase)
     printTotalInCart(dataBase)
+    handleTotal(dataBase)
+    handlePrintCuantyProducts(dataBase)
+darkMode();
 
-    
-
-
+  
 
 }
 main()

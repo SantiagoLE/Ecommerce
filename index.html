@@ -13,37 +13,49 @@
 
 </head>
 
-<body>
+<body class="darkmode">
+
 
     <header>
         <nav id="navbar">
             <div class="logo_Academlo">
                 <img src="./assets/img/logo_Academlo.svg" alt="">
 
-                <h2>STORE</h2>
-            </div>
-            <!-- <div class="menu_Products">
-                <a href="#navbar">Home</a>
-                <a href="#view_Products">Products</a>
-            </div> -->
+                <h3>STORE</h3>
+
+                <ul class="menu_Products">
+                    <li> <a href="#navbar">Home</a></li>
+                    <li> <a href="#view_Products">Products</a></li>
+                </ul>
+
+            </div>        
+
             <div class="menu_Cart">
+
                 <div class="dark_Mode">
-                    <i class='bx bx-sun'></i>
+                    <i id="icon_moon" class='bx bx-moon'></i>
+                 <i id="icon_sun" class='bx bx-sun'></i>
                 </div>
+
                 <div class="cart">
-                    <i class='bx bx-shopping-bag'></i>
+                    <i class='bx bx-shopping-bag'>
+                        <span class="cuanty_products"> </span></i>
                 </div>
+
+                <div class="dashboard">
+                    <i class='bx bxs-dashboard'></i>
+                </div>  
             </div>
         </nav>
         </div>
     </header>
     <div class="cart_content">
-        <div class="cart_products">    </div>
+        <div class="cart_products"> </div>
 
         <div class="cart_total">
             <div class="cart_total--info">
-                <span class="total_products">   </span>
-                <span class="total_price">   </span>
+                <span class="total_products"> </span>
+                <span class="total_price"> </span>
             </div>
             <div class="btn_buy">
                 <button>Comprar</button>
