@@ -187,32 +187,68 @@ function printProducts(dataBase) {
 
     let html = ""
 
-    for (const product of dataBase.products) {
+    dataBase.products.forEach(product => {
 
         const { id, name, price, image, category, quantity, description } = product
-        html += `
+        
+        html +=`
             <div class="cards_Products">
                 <div class="img_Product">
                     <img src="${image}" alt="img">
-                    <div class="button_Add">
-                    ${quantity ? `<i class='bx bx-plus' id="${id}"></i> ` : ""}
                        
-                    </div>
                 </div>
-               
-                <div class="info_Product">               
+
+                <div class="info_Product">
+                ${quantity > 0 ?
+                    `<div class="button_add">
+                        <i class='bx bx-plus' id="${id}"></i>
+                    </div>` :
+                    `<div class="button_add button_add-hiden">
+                        <i class='bx bx-plus' id="${id}"></i>
+                    </div>`}
                     <div class="price_stock">
-                    <h3>$${price}.00</h3>
-                     <h5>${quantity ? `Stock: ${quantity}` : "<span class='sold_Out'>Sold out</span>"}</h5>
+                        <h3>$${price}.00</h3>
+                        <h5>${quantity ? `Stock: ${quantity}` : "<span class='sold_Out'>Sold out</span>"}</h5>
                     </div>
                     <div class="description_Product">
                         <p>${name}</p>
                     </div>
                 </div>
             </div>
-        `
-    }
-    productsHTML.innerHTML = html
+    `
+
+    productsHTML.innerHTML=html
+
+    });
+    // for (const product of dataBase.products) {
+
+    //     const { id, name, price, image, category, quantity, description } = product
+    //     html +=`
+    //         <div class="cards_Products">
+    //             <div class="img_Product">
+    //                 <img src="${image}" alt="img">
+    //                     ${quantity > 0 ?
+    //                         `<div class="button_add">
+    //                             <i class='bx bx-plus' id="${id}"></i>
+    //                         </div>` :
+    //                         `<div class="button_add button_add-hiden">
+    //                             <i class='bx bx-plus' id="${id}"></i>
+    //                         </div>`}
+    //             </div>
+
+    //             <div class="info_Product">
+    //                 <div class="price_stock">
+    //                     <h3>$${price}.00</h3>
+    //                     <h5>${quantity ? `Stock: ${quantity}` : "<span class='sold_Out'>Sold out</span>"}</h5>
+    //                 </div>
+    //                 <div class="description_Product">
+    //                     <p>${name}</p>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //         `
+    // }
+    // productsHTML.innerHTML = html
 }
 
 /*..... Adicionar || quitar clase .view_cart para ver o esconder carrito ..... */
@@ -240,7 +276,7 @@ function viewMenu() {
 /*..... darkMode  ..... */
 
 function darkMode() {
-      // const darkModeHTML = document.querySelector(".bx-moon")
+    // const darkModeHTML = document.querySelector(".bx-moon")
     // console.log(darkModeHTML);
     // darkModeHTML.addEventListener("click", function(){
     //     document.body.classList.toggle("darkmode");
@@ -250,14 +286,18 @@ function darkMode() {
 
     const bxMoonHTML = document.querySelector("#icon_moon");
     const bxSunHTML = document.querySelector("#icon_sun");
+    const darkmode = document.querySelector('html'); // Haca estoy seleccionando el :root
 
     bxMoonHTML.addEventListener("click", function () {
         bxMoonHTML.classList.add("hide_icon_darkmode");
         bxSunHTML.classList.remove("hide_icon_darkmode");
+        darkmode.classList.add("dark");
+
     })
     bxSunHTML.addEventListener("click", function () {
         bxSunHTML.classList.add("hide_icon_darkmode");
         bxMoonHTML.classList.remove("hide_icon_darkmode");
+        darkmode.classList.remove("dark");
 
 
     });
@@ -499,9 +539,9 @@ async function main() {
     printTotalInCart(dataBase)
     handleTotal(dataBase)
     handlePrintCuantyProducts(dataBase)
-darkMode();
+    darkMode();
 
-  
+
 
 }
 main()
