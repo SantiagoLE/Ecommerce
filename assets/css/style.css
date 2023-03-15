@@ -73,6 +73,7 @@ header>nav {
     align-items: center;
     justify-content: space-between;
     background-color: transparent;
+    color: var(--color_black);
 }
 
 nav img {
@@ -446,6 +447,11 @@ nav img {
     padding-bottom: 1rem;
 }
 
+.info_ProductInCart {
+    display: grid;
+    gap:1rem;
+}
+
 .info_ProductInCart h3 {
     color: var(--color_black);
 }
@@ -461,6 +467,7 @@ nav img {
 
 .info_ProductInCart p:nth-child(3) {
     color: var(--bg_home_img);
+    font-size: 1rem;
 }
 
 .add_Sub_Clear {

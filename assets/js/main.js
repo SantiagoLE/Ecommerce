@@ -190,8 +190,8 @@ function printProducts(dataBase) {
     dataBase.products.forEach(product => {
 
         const { id, name, price, image, category, quantity, description } = product
-        
-        html +=`
+
+        html += `
             <div class="cards_Products">
                 <div class="img_Product">
                     <img src="${image}" alt="img">
@@ -200,10 +200,10 @@ function printProducts(dataBase) {
 
                 <div class="info_Product">
                 ${quantity > 0 ?
-                    `<div class="button_add">
+                `<div class="button_add">
                         <i class='bx bx-plus' id="${id}"></i>
                     </div>` :
-                    `<div class="button_add button_add-hiden">
+                `<div class="button_add button_add-hiden">
                         <i class='bx bx-plus' id="${id}"></i>
                     </div>`}
                     <div class="price_stock">
@@ -217,11 +217,9 @@ function printProducts(dataBase) {
             </div>
     `
 
-    productsHTML.innerHTML=html
+        productsHTML.innerHTML = html
 
     });
-    // for (const product of dataBase.products) {
-
     //     const { id, name, price, image, category, quantity, description } = product
     //     html +=`
     //         <div class="cards_Products">
@@ -276,32 +274,38 @@ function viewMenu() {
 /*..... darkMode  ..... */
 
 function darkMode() {
-    // const darkModeHTML = document.querySelector(".bx-moon")
-    // console.log(darkModeHTML);
-    // darkModeHTML.addEventListener("click", function(){
-    //     document.body.classList.toggle("darkmode");
-    // })
-    // const  darkModeHTML = document.querySelector(".dark_Mode");
-
-
     const bxMoonHTML = document.querySelector("#icon_moon");
     const bxSunHTML = document.querySelector("#icon_sun");
-    const darkmode = document.querySelector('html'); // Haca estoy seleccionando el :root
+    const darkMode = document.querySelector('html'); // Haca estoy seleccionando el :root
 
+    // verificar el valor de darkMode alojado en el local storage
+    const darkModeStatus = JSON.parse(localStorage.getItem("mode")) || "ligth"
+    if (darkModeStatus === "dark") {
+        darkMode.classList.add("dark");
+        bxMoonHTML.classList.add("hide_icon_darkmode");
+        bxSunHTML.classList.remove("hide_icon_darkmode");
+    } else {
+        darkMode.classList.remove("dark");
+        bxSunHTML.classList.add("hide_icon_darkmode");
+        bxMoonHTML.classList.remove("hide_icon_darkmode");
+    }
+
+    // Condiciones para boton pasar de light a dark
     bxMoonHTML.addEventListener("click", function () {
         bxMoonHTML.classList.add("hide_icon_darkmode");
         bxSunHTML.classList.remove("hide_icon_darkmode");
-        darkmode.classList.add("dark");
+        darkMode.classList.add("dark");
+        localStorage.setItem("mode", JSON.stringify("dark"));
 
     })
+
+    // Condiciones para pasar de light a dark
     bxSunHTML.addEventListener("click", function () {
         bxSunHTML.classList.add("hide_icon_darkmode");
         bxMoonHTML.classList.remove("hide_icon_darkmode");
-        darkmode.classList.remove("dark");
-
-
+        darkMode.classList.remove("dark");
+        localStorage.setItem("mode", JSON.stringify("light"));
     });
-
 
 }
 
@@ -335,14 +339,6 @@ function addProductsToCard(dataBase) {
 
             const productSearch = dataBase.products.find((product) => product.id === id);
 
-            {// let productSearch = null
-                // for (const product of dataBase.products) {
-                //     if (product.id === id) {
-                //         productSearch = product
-                //         break
-                //     }
-                //}
-            }
             if (dataBase.cart[productSearch.id]) {
                 if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
                     return alert("Producto sin stock")
@@ -368,9 +364,11 @@ function printProductsInCart(dataBase) {
 
     let html = ""
 
+
     for (const product in dataBase.cart) {
 
         const { cuanty, price, name, image, id, quantity } = dataBase.cart[product];
+        const sub = cuanty * price;
 
         html += `
         <div class="product_InCart">
@@ -383,7 +381,7 @@ function printProductsInCart(dataBase) {
 
                  <h3>${name}</h3>
                   <p>Stock: ${quantity} | <span>$${price}.00</span></p>
-                 <p>Subtotal:$"${price}" * "${cuanty}" </p>
+                 <p>Subtotal: $${sub}.00 </p>
                  <div class="add_Sub_Clear" id="${id}">
                       <i class='bx bx-minus'></i>
                       <p>${cuanty} Units</p>
@@ -542,7 +540,37 @@ async function main() {
     darkMode();
 
 
+   
+        const showAllHTML = document.querySelector(".show_all")
+        const shirtHTML = document.querySelector(".shirt")
+        const hoddieHTML = document.querySelector(".hoddie")
+        const sweaterHTML = document.querySelector(".sweater")
 
+        // showAllHTML.addEventListener("click", function () {
+        //     const allProducts 
+        // })
+        
+        shirtHTML.addEventListener("click", function () {
+            const shirt = dataBase.products.filter(product => product.category === "shirt");
+        })
+        showAllHTML.addEventListener("click", function () {
+            const shirt = dataBase.products.filter(product => product.category === "shirt");
+        })
+        showAllHTML.addEventListener("click", function () {
+            const shirt = dataBase.products.filter(product => product.category === "shirt");
+        })
+
+
+
+    
+
+     
+     const hoddie = dataBase.products.filter(product => product.category === "hoddie");
+     const sweater = dataBase.products.filter(product => product.category === "sweater");
+
+    //  dataBase.products = shirt;
+     console.log(shirt);
+    //  printProducts(dataBase)
 }
 main()
 
