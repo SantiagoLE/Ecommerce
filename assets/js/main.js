@@ -164,6 +164,18 @@
 //     }
 // ]
 
+/*..... ventana de carga loading ..... */
+
+function loading() {
+    setTimeout(() => {
+        const loadingHTML = document.querySelector(".loading");
+        loadingHTML.style.display = "none";
+        // loadingHTML.style.visibility = "hidden";
+        // loadingHTML.style.opacity = "0";
+    }, 2500);
+}
+
+
 /*..... consumiendo la api de manera remota ..... */
 
 async function allProducts() {
@@ -192,7 +204,7 @@ function printProducts(dataBase) {
         const { id, name, price, image, category, quantity, description } = product
 
         html += `
-            <div class="cards_Products">
+            <div class="cards_Products ${category}">
                 <div class="img_Product">
                     <img src="${image}" alt="img">
                        
@@ -220,33 +232,7 @@ function printProducts(dataBase) {
         productsHTML.innerHTML = html
 
     });
-    //     const { id, name, price, image, category, quantity, description } = product
-    //     html +=`
-    //         <div class="cards_Products">
-    //             <div class="img_Product">
-    //                 <img src="${image}" alt="img">
-    //                     ${quantity > 0 ?
-    //                         `<div class="button_add">
-    //                             <i class='bx bx-plus' id="${id}"></i>
-    //                         </div>` :
-    //                         `<div class="button_add button_add-hiden">
-    //                             <i class='bx bx-plus' id="${id}"></i>
-    //                         </div>`}
-    //             </div>
-
-    //             <div class="info_Product">
-    //                 <div class="price_stock">
-    //                     <h3>$${price}.00</h3>
-    //                     <h5>${quantity ? `Stock: ${quantity}` : "<span class='sold_Out'>Sold out</span>"}</h5>
-    //                 </div>
-    //                 <div class="description_Product">
-    //                     <p>${name}</p>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //         `
-    // }
-    // productsHTML.innerHTML = html
+    
 }
 
 /*..... Adicionar || quitar clase .view_cart para ver o esconder carrito ..... */
@@ -528,6 +514,7 @@ async function main() {
     }
 
     printProducts(dataBase)
+    loading();
     viewCart()
     viewMenu()
     headerEfect()
@@ -538,39 +525,32 @@ async function main() {
     handleTotal(dataBase)
     handlePrintCuantyProducts(dataBase)
     darkMode();
-
+   
 
    
-        const showAllHTML = document.querySelector(".show_all")
-        const shirtHTML = document.querySelector(".shirt")
-        const hoddieHTML = document.querySelector(".hoddie")
-        const sweaterHTML = document.querySelector(".sweater")
 
-        // showAllHTML.addEventListener("click", function () {
-        //     const allProducts 
-        // })
-        
-        shirtHTML.addEventListener("click", function () {
-            const shirt = dataBase.products.filter(product => product.category === "shirt");
-        })
-        showAllHTML.addEventListener("click", function () {
-            const shirt = dataBase.products.filter(product => product.category === "shirt");
-        })
-        showAllHTML.addEventListener("click", function () {
-            const shirt = dataBase.products.filter(product => product.category === "shirt");
-        })
+    const filterProductsHTML = document.querySelectorAll(".filter_products .button_filter");
+
+    filterProductsHTML.forEach((filter) => {
+        filter.addEventListener("click", (e) => {
+            filterProductsHTML.forEach((filter) =>
+                filter.classList.remove("button__filter--active")
+            );
+
+            e.target.classList.add("button__filter--active");
+        });
+    });
+     mixitup(".products", {
+        selectors: {
+            target: ".cards_Products",
+        },
+        animation: {
+            duration: 300,
+        },
+    });
 
 
 
-    
-
-     
-     const hoddie = dataBase.products.filter(product => product.category === "hoddie");
-     const sweater = dataBase.products.filter(product => product.category === "sweater");
-
-    //  dataBase.products = shirt;
-     console.log(shirt);
-    //  printProducts(dataBase)
 }
 main()
 

@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: 0;
     font-family: Arial, Helvetica, sans-serif;
+    scroll-margin-top: 5rem;
 }
 
 img {
@@ -42,9 +43,23 @@ body {
     background-color: var(--bg_body);
 }
 
-/* .darkmode{
-    background-color: var(--bg_body_darkmode);
-} */
+.loading{
+     width: 100vw; 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    position: fixed;
+    z-index: 100;
+    background-color: var(--bg_body) ;
+
+}
+
+.load__gif{
+    width: 100px;
+    fill: var(--bg_home_img);
+}
 
 /* ***************************HEADER */
 
@@ -76,16 +91,19 @@ header>nav {
     color: var(--color_black);
 }
 
-nav img {
-    width: 40px;
-
+.nav_logo-icon{
+    fill: var(--bg_home_img);
+    width: 12%;
 }
+
 
 .logo_Academlo {
     display: flex;
     align-items: center;
     padding-left: 2rem;
 }
+
+
 
 .menu_Products {
     position: fixed;
@@ -247,7 +265,7 @@ nav img {
     transition: background-color 0.5s, color 0.5s;
 }
 
-.filter_products div:hover {
+.button_filter--active{
     background-color: var(--bg_button_show);
     color: var(--color_white);
 }
@@ -289,10 +307,16 @@ nav img {
 }
 
 .info_Product {
-    padding: 20px 0;
+    padding: 5px 0;
+    min-height: 100px;
     color: var(--color_black);
     background-color: var(--bg_product_info);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+        justify-content: center;
+    
 }
 
 .button_add {
@@ -358,7 +382,7 @@ nav img {
 
 .cart_content {
     height: calc(100vh - var(--height_header));
-    width: 400px;
+    width: 100%;
     background-color: var(--color_white);
     position: fixed;
     top: var(--height_header);
@@ -367,18 +391,13 @@ nav img {
     flex-direction: column;
     transition: right 0.5s;
     z-index: 20;
+    
 
-}
-
-@media (max-width: 700px) {
-    .cart_content {
-        width: 100%;
-    }
 }
 
 .view_cart {
     right: 0%;
-    background-color: black;
+    background-color: green;
     /* display: block; */
 }
 
@@ -390,7 +409,7 @@ nav img {
 }
 
 .cart_total {
-    background-color: green;
+    background-color: var(--color_white);
     height: 15%;
     margin: 0 1rem 1rem 1rem;
     padding: 1rem;
@@ -399,7 +418,7 @@ nav img {
 }
 
 .cart_total--info {
-    background-color: blue;
+    background-color: var(--color_white);
     color: var(--color_stock);
     display: flex;
     justify-content: space-between;
@@ -409,14 +428,9 @@ nav img {
     font-weight: bold;
 }
 
-.btn_buy {
-    background-color: red;
-    display: flex;
-    justify-content: center;
-}
-
 .btn_buy button {
     padding: 1rem 4rem;
+    width: 100%;
     background-color: var(--bg_button_show);
     color: var(--color_white);
     border: none;
@@ -424,6 +438,7 @@ nav img {
 }
 
 .btn_buy button:hover {
+
     background-color: var(--bg_home_img);
 }
 
@@ -493,12 +508,22 @@ nav img {
     gap: 2rem;
     padding: 3rem 2rem;
     margin-top: 2rem;
+    transition: color 0.5s;
 }
 
 .footer_container a {
     text-decoration: none;
+    color: var(--color_social_icons);
+}
+
+.footer_container a:hover{
     color: var(--color_black);
 }
+
+.footer_container a i:hover{
+    color: var(--color_black);
+}
+
 
 .footer_container div {
     display: grid;
@@ -518,15 +543,22 @@ nav img {
     color: var(--color_social_icons);
 }
 
-.footer_container .personal_data {
+.personal_data {
     background-color: var(--bg_home_img);
-    padding: 1rem 0;
+    color: var(--color_black);
+    padding: 1rem ;
+    margin: 0 2rem 2rem  2rem;
+    display: grid;
     justify-content: center;
     text-align: center;
+    gap: 1rem;
+    
+    
 }
 
-.footer_container .personal_data i {
+.personal_data i {
     font-size: 2rem;
+    
 }
 
 /* ***************************Estilos para dispositivos grandes  */
@@ -553,7 +585,10 @@ nav img {
 
     .menu_Cart .dashboard {
         display: none;
+    }
 
+    .cart_content{
+        width: 400px;
     }
 
     .headPage {
@@ -594,4 +629,19 @@ nav img {
         width: 150px;
     }
 
+    .footer_container{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+   .footer_container .our_information{
+    display: flex;
+    flex-direction: column;
+        gap: 1rem;
+    }
+.footer_container .social{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 }

@@ -7,34 +7,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecomerce</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="icon" href="./assets/img/logo_Academlo.svg">
+    <link rel="icon" href="./assets/img/icon_academlo in line.svg">
     <link rel="stylesheet" href="./assets/css/style.css">
+
     <script src="./assets/js/main.js" defer></script>
 
 </head>
 
-<body >
+<body>
 
+    <div class="loading">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.92 56.48" class="load__gif">
+            <g>
+                <g>
+                    <path
+                        d="M24.45,56.48,0,42.36V14.12L24.46,0,48.92,14.12V42.36ZM1.89,41.26l22.56,13L47,41.26v-26l-22.56-13-22.56,13Z">
+                    </path>
+                    <path
+                        d="M28.58,15.39H25.16L35.78,36H31.49L20.67,15.71,8.23,38.82H18.94l3-5.43h-3.4l-1.47,2.54h-4l2.69-5.09H25.85l4.28,8H40.67ZM17.23,28.21l3.57-6.6,3.57,6.6Z">
+                    </path>
+                </g>
+            </g>
+        </svg>
+    </div>
 
     <header>
-        <nav id="navbar">
-            <div class="logo_Academlo">
-                <img src="./assets/img/logo_Academlo.svg" alt="">
+        <nav>
+            <div class="logo_Academlo" id="navbar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.92 56.48" class="nav_logo-icon">
+                    <g>
+                        <g>
+                            <path
+                                d="M28.58,15.39H25.16L35.78,36H31.49L20.67,15.71,8.23,38.82H18.94l3-5.43h-3.4l-1.47,2.54h-4l2.69-5.09H25.85l4.28,8H40.67ZM17.23,28.21l3.57-6.6,3.57,6.6Z">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
 
                 <h3>STORE</h3>
 
                 <ul class="menu_Products">
-                    <li> <a href="#navbar">Home</a></li>
-                    <li> <a href="#view_Products">Products</a></li>
+                    <li> <a href="#">Home</a></li>
+                    <li> <a href="#products">Products</a></li>
                 </ul>
 
-            </div>        
+            </div>
 
             <div class="menu_Cart">
 
                 <div class="dark_Mode">
                     <i id="icon_moon" class='bx bx-moon'></i>
-                 <i id="icon_sun" class='bx bx-sun hide_icon_darkmode'></i>
+                    <i id="icon_sun" class='bx bx-sun hide_icon_darkmode'></i>
                 </div>
 
                 <div class="cart">
@@ -44,12 +67,16 @@
 
                 <div class="dashboard">
                     <i class='bx bxs-dashboard'></i>
-                </div>  
+                </div>
             </div>
         </nav>
         </div>
     </header>
+
     <div class="cart_content">
+        <div class="btn_x">
+            <i class='bx bx-x'></i>
+        </div>
         <div class="cart_products"> </div>
 
         <div class="cart_total">
@@ -62,6 +89,7 @@
             </div>
         </div>
     </div>
+
     <div class="container">
         <div class="cart_content">
             <div class="cart_products"></div>
@@ -85,33 +113,35 @@
 
         </div>
 
-        <div class="filter_products" id="view_Products">
-            <div class="show_all">
-                <p>Show all</p>
-                <p>Show all products</p>
-            </div>
+        <div  id="products">
 
-            <div class="shirt">
-                <p>Shirt</p>
-                <p>7 products</p>
-            </div>
+            <div class="filter_products">
+                <div class="button_filter button_filter--active" data-filter="all">
+                    <p>Show all</p>
+                    <p>Show all products</p>
+                </div>
 
-            <div class="hoddie">
-                <p>Hoddie</p>
-                <p>6 products</p>
-            </div>
+                <div class="button_filter" data-filter=".shirt">
+                    <p>Shirt</p>
+                    <p>7 products</p>
+                </div>
 
-            <div class="sweater">
-                <p>Sweater</p>
-                <p>5 products</p>
-            </div>
+                <div class="button_filter" data-filter=".hoddie">
+                    <p>Hoddie</p>
+                    <p>6 products</p>
+                </div>
 
+                <div class="button_filter" data-filter=".sweater">
+                    <p>Sweater</p>
+                    <p>5 products</p>
+                </div>
+
+            </div>
+          
+            <div class="products">
+
+            </div>
         </div>
-
-        <div class="products" id="products">
-
-        </div>
-
 
     </div>
 
@@ -130,6 +160,7 @@
             <a href="#">Copy Right</a>
         </div>
         <div class="product">
+            <h3>Product</h3>
             <a href="#">Hoodies</a>
             <a href="#">Shirts</a>
             <a href="#">About Us</a>
@@ -142,14 +173,17 @@
                 <a href="#"><i class='bx bxl-twitter'></i></a>
                 <a href="#"><i class='bx bxl-instagram'></i></a>
             </div>
-            <div class="personal_data">
-                <p><b> Name:</b> Santiago Loaiza Escobar</p>
-                <p><b>Email:</b> sle.0394@hotmail.com</p>
-                <a href="https://github.com/SantiagoLE/Ecommerce.git" target="_blank"><i class='bx bxl-github'></i></a>
-            </div>
+
         </div>
     </div>
 
+    <div class="personal_data">
+        <p><b> Name:</b> Santiago Loaiza Escobar</p>
+        <p><b>Email:</b> sle.0394@hotmail.com</p>
+        <a href="https://github.com/SantiagoLE/Ecommerce.git" target="_blank"><i class='bx bxl-github'></i></a>
+    </div>
+
+    <script src="./mixitup.min.js"></script>
 </body>
 
 </html>
