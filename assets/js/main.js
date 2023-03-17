@@ -232,7 +232,7 @@ function printProducts(dataBase) {
         productsHTML.innerHTML = html
 
     });
-    
+
 }
 
 /*..... Adicionar || quitar clase .view_cart para ver o esconder carrito ..... */
@@ -262,7 +262,7 @@ function viewMenu() {
 function darkMode() {
     const bxMoonHTML = document.querySelector("#icon_moon");
     const bxSunHTML = document.querySelector("#icon_sun");
-    const darkMode = document.querySelector('html'); // Haca estoy seleccionando el :root
+    const darkMode = document.querySelector(':root'); // Haca estoy seleccionando el :root
 
     // verificar el valor de darkMode alojado en el local storage
     const darkModeStatus = JSON.parse(localStorage.getItem("mode")) || "ligth"
@@ -312,6 +312,33 @@ function headerEfect() {
 
 }
 
+/*..... Filtrar productos por categoria && Adicionar || quitar clase .button_filter--active para ver filtro activo   ..... */
+
+function handleFilter() {
+    const filterProductsHTML = document.querySelectorAll(".button_filter");
+
+    filterProductsHTML.forEach((filter) => {
+        filter.addEventListener("click", (e) => {
+            filterProductsHTML.forEach((filter) =>
+                filter.classList.remove("button_filter--active")
+            );
+            e.currentTarget.classList.add("button_filter--active");
+        });
+    });
+
+
+    mixitup(".products", {
+        selectors: {
+            target: ".cards_Products",
+        },
+        animation: {
+            duration: 300,
+        },
+    });
+
+
+}
+
 
 /*..... Adicionar los productos al carrito desde las cards..... */
 
@@ -327,7 +354,7 @@ function addProductsToCard(dataBase) {
 
             if (dataBase.cart[productSearch.id]) {
                 if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
-                    return alert("Producto sin stock")
+                    return Swal.fire("Producto sin stock")
                 dataBase.cart[productSearch.id].cuanty++
             } else {
                 dataBase.cart[productSearch.id] = { ...productSearch, cuanty: 1 }
@@ -393,7 +420,8 @@ function handleProductsInCart(dataBase) {
 
             const productSearch = dataBase.products.find((product) => product.id === id);
             if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
-                return alert("Producto sin stock")
+                return Swal.fire("Producto sin stock")
+
             dataBase.cart[id].cuanty++
         }
 
@@ -401,13 +429,28 @@ function handleProductsInCart(dataBase) {
             const id = Number(e.target.parentElement.id)
 
             if (dataBase.cart[id].cuanty === 1) {
-                const response = confirm(
-                    " Seguro deseas eliminar este producto del carrito?"
-                )
+               
+                Swal.fire({
+                    title: "Seguro deseas eliminar el producto?",
+                    showCancelButton: true,
+                    confirmButtonText: 'Eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
 
-                if (!response) return;
-                delete dataBase.cart[id];
+                    if (result.isConfirmed) {
+                        delete dataBase.cart[id];
 
+                        localStorage.setItem("cart", JSON.stringify(dataBase.cart))
+                        printProductsInCart(dataBase)
+                        printTotalInCart(dataBase)
+                        handlePrintCuantyProducts(dataBase)
+
+                    } else if (result.isDenied) {
+                        return;
+                    }
+
+
+                })
             } else {
                 dataBase.cart[id].cuanty--;
             }
@@ -416,11 +459,27 @@ function handleProductsInCart(dataBase) {
 
         if (e.target.classList.contains("bx-trash")) {
             const id = Number(e.target.parentElement.id)
-            const response = confirm(
-                " Seguro deseas eliminar este producto del carrito?"
-            )
-            if (!response) return;
-            delete dataBase.cart[id];
+           
+            Swal.fire({
+                title: "Seguro deseas eliminar el producto?",
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    delete dataBase.cart[id];
+
+                    localStorage.setItem("cart", JSON.stringify(dataBase.cart))
+                    printProductsInCart(dataBase)
+                    printTotalInCart(dataBase)
+                    handlePrintCuantyProducts(dataBase)
+                } else if (result.isDenied) {
+                    return;
+                }
+
+
+            })
         }
 
         localStorage.setItem("cart", JSON.stringify(dataBase.cart))
@@ -458,35 +517,53 @@ function handleTotal(dataBase) {
     btnBuyHTML.addEventListener("click", function () {
 
         if (!Object.values(dataBase.cart).length)
-            return alert("Tu carrito de compras esta vacio");
+            return Swal.fire("Tu carrito de compras esta vacio");
 
-        const response = confirm("Seguro que quieres comprar?");
-        if (!response) return;
+     
+        Swal.fire({
+            title: "Seguro que quieres comprar?",
+            showCancelButton: true,
+            confirmButtonText: 'Comprar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
 
-        const currentProducts = []
+            if (result.isConfirmed) {
+                const currentProducts = []
 
-        for (const product of dataBase.products) {
+                for (const product of dataBase.products) {
+                    const productInCart = dataBase.cart[product.id]
+                    if (product.id === productInCart?.id) {
+                        currentProducts.push({
+                            ...product,
+                            quantity: product.quantity - productInCart.cuanty,
+                        })
+                    } else {
+                        currentProducts.push(product)
+                    }
+                }
 
-            const productInCart = dataBase.cart[product.id]
-            if (product.id === productInCart?.id) {
-                currentProducts.push({
-                    ...product,
-                    quantity: product.quantity - productInCart.cuanty,
-                })
-            } else {
-                currentProducts.push(product)
+                dataBase.products = currentProducts;
+                dataBase.cart = {};
+                localStorage.setItem("products", JSON.stringify(dataBase.products));
+                localStorage.setItem("cart", JSON.stringify(dataBase.cart));
+
+                printTotalInCart(dataBase);
+                printProductsInCart(dataBase);
+                printProducts(dataBase);
+                handlePrintCuantyProducts(dataBase);
+
+            } else if (result.isDenied) {
+                return;
             }
-        }
 
-        dataBase.products = currentProducts;
-        dataBase.cart = {};
-        localStorage.setItem("products", JSON.stringify(dataBase.products));
-        localStorage.setItem("cart", JSON.stringify(dataBase.cart));
 
+        })
+        
         printTotalInCart(dataBase);
         printProductsInCart(dataBase);
         printProducts(dataBase);
         handlePrintCuantyProducts(dataBase);
+
 
     })
 }
@@ -517,40 +594,15 @@ async function main() {
     loading();
     viewCart()
     viewMenu()
-    headerEfect()
-    addProductsToCard(dataBase)
-    printProductsInCart(dataBase)
-    handleProductsInCart(dataBase)
-    printTotalInCart(dataBase)
-    handleTotal(dataBase)
-    handlePrintCuantyProducts(dataBase)
     darkMode();
-   
-
-   
-
-    const filterProductsHTML = document.querySelectorAll(".filter_products .button_filter");
-
-    filterProductsHTML.forEach((filter) => {
-        filter.addEventListener("click", (e) => {
-            filterProductsHTML.forEach((filter) =>
-                filter.classList.remove("button__filter--active")
-            );
-
-            e.target.classList.add("button__filter--active");
-        });
-    });
-     mixitup(".products", {
-        selectors: {
-            target: ".cards_Products",
-        },
-        animation: {
-            duration: 300,
-        },
-    });
-
-
-
+    headerEfect()
+    handleFilter();
+    addProductsToCard(dataBase);
+    printProductsInCart(dataBase);
+    handleProductsInCart(dataBase);
+    printTotalInCart(dataBase);
+    handleTotal(dataBase);
+    handlePrintCuantyProducts(dataBase);
 }
 main()
 

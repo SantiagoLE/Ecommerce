@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecomerce</title>
+    <title>Ecomerce_By: Santiago Loaiza Escobar</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
+    ">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="./assets/img/icon_academlo in line.svg">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./mixitup.min.js" defer></script>
 
     <script src="./assets/js/main.js" defer></script>
 
@@ -74,10 +78,10 @@
     </header>
 
     <div class="cart_content">
-        <div class="btn_x">
-            <i class='bx bx-x'></i>
+
+        <div class="cart_products">  
+            
         </div>
-        <div class="cart_products"> </div>
 
         <div class="cart_total">
             <div class="cart_total--info">
@@ -113,31 +117,27 @@
 
         </div>
 
-        <div  id="products">
+        <div id="products">
 
             <div class="filter_products">
-                <div class="button_filter button_filter--active" data-filter="all">
-                    <p>Show all</p>
-                    <p>Show all products</p>
-                </div>
+                <button class="button_filter button_filter--active" data-filter="all">Show all
+                   <br> <span>Show all products</span>
+                </button>
 
-                <div class="button_filter" data-filter=".shirt">
-                    <p>Shirt</p>
-                    <p>7 products</p>
-                </div>
+                <button class="button_filter" data-filter=".shirt">Shirt
+                  <br><span>7 products</span> 
+                </button>
 
-                <div class="button_filter" data-filter=".hoddie">
-                    <p>Hoddie</p>
-                    <p>6 products</p>
-                </div>
+                <button class="button_filter" data-filter=".hoddie">Hoddie
+                   <br> <span>6 products</span>
+                </button>
 
-                <div class="button_filter" data-filter=".sweater">
-                    <p>Sweater</p>
-                    <p>5 products</p>
-                </div>
+                <button class="button_filter" data-filter=".sweater"> Sweater
+                    <br> <span>5 products</span>
+                </button>
 
             </div>
-          
+
             <div class="products">
 
             </div>
@@ -183,7 +183,7 @@
         <a href="https://github.com/SantiagoLE/Ecommerce.git" target="_blank"><i class='bx bxl-github'></i></a>
     </div>
 
-    <script src="./mixitup.min.js"></script>
+    
 </body>
 
 </html>
