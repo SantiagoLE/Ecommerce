@@ -202,7 +202,6 @@ function printProducts(dataBase) {
     dataBase.products.forEach(product => {
 
         const { id, name, price, image, category, quantity, description } = product
-
         html += `
             <div class="cards_Products ${category}">
                 <div class="img_Product">
@@ -223,7 +222,7 @@ function printProducts(dataBase) {
                         <h5>${quantity ? `Stock: ${quantity}` : "<span class='sold_Out'>Sold out</span>"}</h5>
                     </div>
                     <div class="description_Product">
-                        <p>${name}</p>
+                        <p class="name_product" id="${id}">${name} </p>
                     </div>
                 </div>
             </div>
@@ -351,7 +350,6 @@ function addProductsToCard(dataBase) {
             const id = Number(e.target.id)
 
             const productSearch = dataBase.products.find((product) => product.id === id);
-
             if (dataBase.cart[productSearch.id]) {
                 if (productSearch.quantity === dataBase.cart[productSearch.id].cuanty)
                     return Swal.fire("Producto sin stock")
@@ -379,10 +377,8 @@ function printProductsInCart(dataBase) {
 
 
     for (const product in dataBase.cart) {
-
         const { cuanty, price, name, image, id, quantity } = dataBase.cart[product];
         const sub = cuanty * price;
-
         html += `
         <div class="product_InCart">
 
@@ -429,7 +425,7 @@ function handleProductsInCart(dataBase) {
             const id = Number(e.target.parentElement.id)
 
             if (dataBase.cart[id].cuanty === 1) {
-               
+
                 Swal.fire({
                     title: "Seguro deseas eliminar el producto?",
                     showCancelButton: true,
@@ -459,7 +455,7 @@ function handleProductsInCart(dataBase) {
 
         if (e.target.classList.contains("bx-trash")) {
             const id = Number(e.target.parentElement.id)
-           
+
             Swal.fire({
                 title: "Seguro deseas eliminar el producto?",
                 showCancelButton: true,
@@ -519,7 +515,7 @@ function handleTotal(dataBase) {
         if (!Object.values(dataBase.cart).length)
             return Swal.fire("Tu carrito de compras esta vacio");
 
-     
+
         Swal.fire({
             title: "Seguro que quieres comprar?",
             showCancelButton: true,
@@ -558,7 +554,7 @@ function handleTotal(dataBase) {
 
 
         })
-        
+
         printTotalInCart(dataBase);
         printProductsInCart(dataBase);
         printProducts(dataBase);
@@ -603,6 +599,53 @@ async function main() {
     printTotalInCart(dataBase);
     handleTotal(dataBase);
     handlePrintCuantyProducts(dataBase);
+
+
+
+    const modalProductsHTML = document.querySelector(".modal_products");
+    const productsHTML = document.querySelector(".products");
+
+
+    let html = ""
+
+    productsHTML.addEventListener("click", function (e) {
+
+        if (e.target.classList.contains("name_product")) {
+            modalProductsHTML.classList.remove("modal_hidden")
+            const idSearch = Number(e.target.id);
+
+            const productSearch = dataBase.products.find((product) => product.id === idSearch);
+
+            const { id, name, price, image, category, description, quantity } = productSearch
+
+            html =
+                `
+                <div class="card_modal">
+                    <div class="image_modal">
+                        <img src="${image}" alt="imagen">
+                        <i class='bx bxs-x-circle'></i>
+                    </div>
+                    <div class="modal_info">
+                        <h3>${name}</h3>
+                        <p>${description}</p>
+                    </div>
+                    <div class="modal_price--stock">
+                        <h3>${price}.00</h3>
+                        <p>Stock: ${quantity}</p>
+                    </div>
+                </div>
+                `
+            modalProductsHTML.innerHTML = html
+
+            const buttonXHTML = document.querySelector(".bxs-x-circle")
+            buttonXHTML.addEventListener("click", function () {
+                modalProductsHTML.classList.add("modal_hidden")
+            })
+        }
+    });
+
+
+
 }
 main()
 

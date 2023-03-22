@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: 0;
+    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     scroll-margin-top: 5rem;
 }
@@ -399,6 +399,70 @@ button span{
 .description_Product p {
     font-weight: 500;
     padding-left: 20px;
+    cursor: pointer;
+    transform: color 0.5s;
+}
+
+.description_Product p:hover{
+    color: var(--bg_home_img);
+}
+
+/* ***************************MODAL PRODUCTS */
+.modal_products{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:fixed; 
+    background-color: rgba(5, 1, 1, 0.344);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1500;
+    place-self: center;
+    top: 0;
+    left: 0;
+}
+
+.modal_hidden{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.card_modal{
+    max-width: 350px;
+    border-radius: 10px;
+    /* overflow: hidden; */
+    border: var(--color_black) solid 2px;
+    padding: 1rem;
+    background-color: red;
+}
+
+.image_modal{
+    background-color: var(--bg_product);
+    border-radius: 10px;
+    position: relative;
+}
+
+.image_modal i{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.modal_info{
+    padding: 1rem 0;
+    color:var(--color_black);
+}
+
+.card_modal p{
+    color: var(--bg_button_show);
+}
+
+.modal_price--stock{
+    display: flex;
+    gap: 1rem;
 }
 
 /* ***************************CART */
@@ -532,6 +596,10 @@ button span{
     padding: 3rem 2rem;
     margin-top: 2rem;
     transition: color 0.5s;
+}
+
+.footer_container h3 {
+    color: var(--color_black);
 }
 
 .footer_container a {
